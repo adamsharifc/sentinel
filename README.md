@@ -50,3 +50,12 @@ complexity, and correctness of the feature).
 | Code Quality              | 5 pts  | Code is well-structured and documented.                                                         |
 | Report                    | 5 pts  | The report clearly describes the steps taken to complete the project.                           |
 | Bonus                     | TBD    | Does the extension go beyond the basic requirements?                                            |
+
+
+## Ideas for stretch goals
+
+- Allow user to upload their own block lists.
+- Allow user to add a single custom rule to the block list.
+- Setup automatic updates for the block list.
+- Use wxt to generate the extension for firefox as well.
+- Visualization of tracking

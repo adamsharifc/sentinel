@@ -1,35 +1,40 @@
-import { useState } from 'react';
-import reactLogo from '@/assets/react.svg';
-import wxtLogo from '/wxt.svg';
 import './App.css';
+import Logo from './components/Logo';
+import Fingerprint from './components/Fingerprint';
+import Detective from './components/Detective';
 
 function App() {
-  const [count, setCount] = useState(0);
 
-  return (
-    <>
-      <div>
-        <a href="https://wxt.dev" target="_blank">
-          <img src={wxtLogo} className="logo" alt="WXT logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>WXT + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the WXT and React logos to learn more
-      </p>
-    </>
-  );
+	return (
+		<div className='container'>
+			<div className="logo-container">
+				<Logo />
+				<h1>Sentinel</h1>
+			</div>
+
+			<div className="protections-container">
+				<div className="protection-container">
+					<div className="header-protection-container">
+						<Detective size={28} />
+						<h2>Tracking Protection</h2>
+					</div>
+
+					<p>
+						Detects and blocks tracking attempts from websites, ensuring your online activities remain private.
+					</p>
+				</div>
+				<div className="protection-container">
+					<div className="header-protection-container">
+						<Fingerprint size={28}/>
+						<h2>Fingerprinting Protection</h2>
+					</div>
+					<p>
+						Prevents websites from collecting unique device information to create a digital fingerprint, enhancing your anonymity.
+					</p>
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default App;

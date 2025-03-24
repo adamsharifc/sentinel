@@ -2,6 +2,7 @@ import './App.css';
 import Logo from './components/Logo';
 import Fingerprint from './components/Fingerprint';
 import Detective from './components/Detective';
+import TrackingStats from './components/TrackingStats';
 
 function App() {
 
@@ -22,6 +23,11 @@ function App() {
 					<p>
 						Detects and blocks tracking attempts from websites, ensuring your online activities remain private.
 					</p>
+
+					<div className="tracking-stats-container">
+						<TrackingStats />
+					</div>
+
 				</div>
 				<div className="protection-container">
 					<div className="header-protection-container">

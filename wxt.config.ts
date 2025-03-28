@@ -15,36 +15,21 @@ export default defineConfig({
 		],
 		declarative_net_request: {
 			rule_resources: [
-			// {
-			// 	id: 'ruleset_1',
-			// 	path: 'rules.json',
-			// 	enabled: true,
-			// },
-			// {
-			// 	id: 'advert_rules_1',
-			// 	path: 'advert_rules_1.json',
-			// 	enabled: true,
-			// },
-			// {
-			// 	id: 'advert_rules_2',
-			// 	path: 'advert_rules_2.json',
-			// 	enabled: true,
-			// },
-			// {
-			// 	id: 'tracking_rules_1',
-			// 	path: 'tracking_rules_1.json',
-			// 	enabled: true,
-			// },
-			// {
-			// 	id: 'tracking_rules_2',
-			// 	path: 'tracking_rules_2.json',
-			// 	enabled: true,
-			// }
-			// {
-			// 	id: "ruleset_1",
-			// 	path: "advert.json",
-			// 	enabled: true,
-			// }
+				{
+					id: 'advert-dnr',
+					path: 'advert-dnr.json',
+					enabled: true,
+				},
+				{
+					id: 'tracker-dnr',
+					path: 'tracker-dnr.json',
+					enabled: true,
+				},
+				{
+					id: 'social-dnr',
+					path: 'social-dnr.json',
+					enabled: true,
+				}
 			],
 		},
 	},

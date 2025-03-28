@@ -2,7 +2,7 @@ import './App.css';
 import Logo from './components/Logo';
 import Fingerprint from './components/Fingerprint';
 import Detective from './components/Detective';
-import TrackingStats from './components/TrackingStats';
+import BlockingStats from './components/BlockingStats';
 
 function App() {
 
@@ -24,8 +24,8 @@ function App() {
 						Detects and blocks tracking attempts from websites, ensuring your online activities remain private.
 					</p>
 
-					<div className="tracking-stats-container">
-						<TrackingStats />
+					<div className="blocking-stats-container">
+						<BlockingStats />
 					</div>
 
 				</div>

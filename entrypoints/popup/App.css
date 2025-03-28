@@ -45,10 +45,17 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 500;
 }
 
-.tracking-stats-container{
+.blocking-stats-container{
 	display: flex;
 	width: 100%;
 	box-sizing: border-box;
 	justify-content: center;
-	/* border: 1px solid red; */
+}
+.blocking-stats{
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 0 var(--size-5);
 }

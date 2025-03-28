@@ -59,3 +59,11 @@ complexity, and correctness of the feature).
 - Setup automatic updates for the block list.
 - Use wxt to generate the extension for firefox as well.
 - Visualization of tracking
+
+## DNR Rulesets mapping
+
+| Blocklist | DNR Ruleset | Description |
+|-----------|-------------|-------------|
+| [Easylist](https://easylist.to/easylist/easylist.txt) | `advert-dnr` | This ruleset blocks ads and trackers. |
+| [Easyprivacy](https://easylist.to/easylist/easyprivacy.txt) | `tracker-dnr` | This ruleset blocks tracking scripts. |
+| [Fanboy's Social Blocking List](https://easylist.to/easylist/fanboy-social.txt) | `social-dnr` | This ruleset blocks social media trackers. |

@@ -134881,10 +134881,7 @@
             "urlFilter": "||d1z2jf7jlzjs58.cloudfront.net^"
         },
         "action": {
-            "type": "redirect",
-            "redirect": {
-                "url": "data:application/javascript,"
-            }
+            "type": "block"
         },
         "id": 7655
     },

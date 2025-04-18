@@ -2,16 +2,34 @@ import { defineConfig } from 'wxt';
 
 // See https://wxt.dev/api/config.html
 export default defineConfig({
-	extensionApi: 'chrome',
+	extensionApi: "webextension-polyfill",
 	modules: ['@wxt-dev/module-react'],
 	manifest: {
 		permissions: [
-			'storage', 
 			'declarativeNetRequest',
 			'declarativeNetRequestFeedback',
 			'declarativeNetRequestWithHostAccess',
 			'webRequest',
-			'activeTab'
+			'activeTab',
+			'scripting',
+		],
+		description: 'A browser extension that blocks ads and trackers.',
+		name: 'Sentinel',
+		content_scripts: [
+			{
+				matches: ['<all_urls>'],
+				js: [
+					'./content-scripts/fingerprintBlocking.js',
+					'./content-scripts/audioFingerprintBlocking.js',
+					'./content-scripts/webglFingerprintBlocking.js',
+				],
+				run_at: 'document_start',
+				all_frames: true,
+				world: 'MAIN',
+			},
+		],
+		host_permissions: [
+			"<all_urls>",
 		],
 		declarative_net_request: {
 			rule_resources: [

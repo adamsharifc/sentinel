@@ -25,3 +25,5 @@ web-ext.config.ts
 *.sln
 *.sw?
 package-lock.json
+
+abp2dnr.js

@@ -35,6 +35,16 @@
 	--warning-800: #FDF89B;
 	--warning-900: #FEFCCD;
 
+	--danger-100: #FDEBD0;
+	--danger-200: #FCD2A1;
+	--danger-300: #F6B172;
+	--danger-400: #ED904E;
+	--danger-500: #E25F18;
+	--danger-600: #C24411;
+	--danger-700: #A22E0C;
+	--danger-800: #831B07;
+	--danger-900: #6C0F04;
+
 	--size-0-5: 0.125rem;
 	--size-0-7-5: 0.2rem;
 	--size-1: 0.25rem;

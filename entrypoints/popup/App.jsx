@@ -1,8 +1,10 @@
 import './App.css';
-import Logo from './components/Logo';
-import Fingerprint from './components/Fingerprint';
-import Detective from './components/Detective';
-import BlockingStats from './components/BlockingStats';
+import Logo from '../icons/Logo.jsx';
+// import Fingerprint from '../icons/Fingerprint.jsx';
+import Detective from '../icons/Detective.jsx';
+import FingerprintIcon from '../icons/FingerprintIcon.jsx';
+import BlockingStats from '../components/BlockingStats.jsx';
+import FPToggle from "../components/FPToggle.jsx";
 
 function App() {
 
@@ -31,12 +33,17 @@ function App() {
 				</div>
 				<div className="protection-container">
 					<div className="header-protection-container">
-						<Fingerprint size={28}/>
+						<FingerprintIcon size={28}/>
 						<h2>Fingerprinting Protection</h2>
 					</div>
 					<p>
 						Prevents websites from collecting unique device information to create a digital fingerprint, enhancing your anonymity.
 					</p>
+					<div className="fingerprint-toggles-container">
+						<FPToggle type="webgl" enabled={true} onToggle={state => console.log('WebGL:', state)} />
+						<FPToggle type="audio" enabled={false} onToggle={state => console.log('Audio:', state)} />
+						<FPToggle type="canvas" enabled={true} onToggle={state => console.log('Canvas:', state)} />
+					</div>
 				</div>
 			</div>
 		</div>

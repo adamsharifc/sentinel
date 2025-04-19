@@ -19,7 +19,7 @@ export default defineConfig({
 			{
 				matches: ['<all_urls>'],
 				js: [
-					'./content-scripts/fingerprintBlocking.js',
+					'./content-scripts/canvasFingerprintBlocking.js',
 					'./content-scripts/audioFingerprintBlocking.js',
 					'./content-scripts/webglFingerprintBlocking.js',
 				],

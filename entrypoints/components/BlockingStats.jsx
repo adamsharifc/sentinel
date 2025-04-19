@@ -4,13 +4,13 @@ export default function BlockingStats() {
     const [advertsBlocked, setAdvertsBlocked] = useState(0);
     const [socialBlocked, setSocialBlocked] = useState(0);
     const [trackersBlocked, setTrackersBlocked] = useState(0);
-    const [currentTabId, setCurrentTabId] = useState<number | null>(null);
+    const [currentTabId, setCurrentTabId] = useState(null);
     // Add a refresh trigger state to force updates
     const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     // Get current tab and set up URL change listener
     useEffect(() => {
-        let activeTabId: number | null = null;
+        let activeTabId = null;
         
         // Function to get the active tab ID
         const getActiveTab = async () => {
@@ -29,7 +29,7 @@ export default function BlockingStats() {
         getActiveTab();
         
         // Listen for tab status changes
-        const tabUpdateListener = (tabId: number, changeInfo: chrome.tabs.TabChangeInfo) => {
+        const tabUpdateListener = (tabId, changeInfo) => {
             // Refresh when the page has completed loading and it's our active tab
             if (changeInfo.status === 'complete' && tabId === activeTabId) {
                 console.log('Page load complete, refreshing stats');

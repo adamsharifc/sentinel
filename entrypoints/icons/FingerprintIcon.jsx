@@ -1,11 +1,6 @@
 import * as React from "react";
 
-interface SvgIconProps {
-	size?: number;
-	fill?: string;
-}
-
-const Fingerprint: React.FC<SvgIconProps> = ({ size = 32, fill = "teal" }) => (
+const FingerprintIcon = ({ size = 32, fill = "teal" }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width={size}
@@ -17,4 +12,4 @@ const Fingerprint: React.FC<SvgIconProps> = ({ size = 32, fill = "teal" }) => (
 	</svg>
 );
 
-export default Fingerprint;
+export default FingerprintIcon;

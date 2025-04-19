@@ -1,11 +1,6 @@
 import * as React from "react";
 
-interface SvgIconProps {
-	size?: number;
-	fill?: string;
-}
-
-const Logo: React.FC<SvgIconProps> = ({ size = 32, fill = "#008080" }) => (
+const Logo = ({ size = 32, fill = "#008080" }) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		width={size}

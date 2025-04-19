@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--size-2);
+}
+
+.toggleBtn {
+    border: 3px solid var(--danger-800);
+    background: transparent;
+    border-radius: 50%;
+    width: var(--size-7);
+    height: var(--size-7);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    outline: none;
+    flex-direction: column;
+}
+
+.toggleBtn.on {
+    background: #008080;
+    border-color: transparent;
+}
+
+.toggleBtn.off {
+    background: transparent;
+}
+
+.iconCircle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label {
+    font-size: var(--size-4);
+    color: var(--primary-color);
+    user-select: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+
+.label.on{
+    color: var(--primary-color);
+}
+
+.label.off{
+    color: var(--danger-800);
+}

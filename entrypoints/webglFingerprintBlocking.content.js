@@ -119,5 +119,6 @@ export default defineContentScript({
         observerWebGL.observe(document.documentElement, {childList: true, subtree: true});
 
         console.log('[Sentinel] WebGL fingerprinting protection active');
+
     }
 });

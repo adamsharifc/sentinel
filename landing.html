@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sentinel – Privacy Extension</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --teal: #008080;
+      --teal-dark: #004C5C;
+      --teal-light: #C6F8E7;
+      --bg: #fcfcfc;
+      --text: #222;
+      --mono: 'Fira Mono', 'Consolas', 'Menlo', monospace;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #fcfcfc, #e8f7f5);
+      color: var(--text);
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    }
+    header {
+      position: relative;
+      background: var(--teal);
+      color: #fff;
+      padding: 0;
+      text-align: left;
+      overflow: hidden;
+      height: 70vh;
+      min-height: 480px;
+      display: flex;
+      align-items: center;
+    }
+    .header-content {
+      width: 100%;
+      max-width: 750px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+    }
+    .header-accent {
+      /* Removed this rule to reduce retro feel */
+    }
+    .diagonal-bar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      background: var(--teal-dark);
+      transform: skewY(-3deg); /* Reduced skew for a more subtle effect */
+      transform-origin: top left;
+      z-index: 1;
+    }
+    .header-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      grid-gap: 2rem;
+    }
+    header h1 {
+      font-family: Georgia, serif;
+      font-size: 5.5rem; /* Slightly reduced size */
+      margin: 0 0 1rem 0;
+      letter-spacing: 1px; /* Reduced letter spacing */
+      font-weight: 700;
+      line-height: 1; /* Adjusted line height */
+      position: relative;
+    }
+    header h1::after {
+      /* Removed underline */
+    }
+    header p {
+      font-size: 1.25rem;
+      font-family: Georgia, serif;
+      margin: 1rem 0 0 0;
+      font-style: italic;
+      max-width: 450px;
+      line-height: 1.6;
+    }
+    .header-shield {
+      position: relative;
+      z-index: 2;
+      font-family: Georgia, serif;
+      font-size: 10rem;
+      font-style: italic;
+      line-height: 1;
+      text-align: center;
+      color: rgba(255,255,255,0.08);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-meta {
+      margin-top: 2rem;
+      font-size: 0.95rem;
+      opacity: 0.7;
+      font-style: italic;
+    }
+    main {
+      max-width: 750px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    h2 {
+      font-family: Georgia, serif;
+      color: var(--teal-dark);
+      font-size: 2.5rem;
+      margin-top: 3rem;
+      margin-bottom: 1.5rem;
+      font-weight: 400;
+      font-style: italic;
+    }
+    h2::after {
+      /* Removed underline */
+    }
+    h3 {
+      font-family: Georgia, serif;
+      color: var(--teal);
+      font-size: 1.25rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    ul, ol {
+      font-size: 1.08rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+    /* Replace the existing features section CSS with this */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      margin: 4rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, rgba(0,128,128,0.05), rgba(198,248,231,0.1));
+      border-radius: 20px;
+    }
+
+    .feature-card {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      padding: 0;
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateX(10px);
+    }
+
+    .feature-card::before {
+      display: none;
+    }
+
+    .feature-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      background: var(--teal);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .feature-content {
+      flex: 1;
+    }
+
+    .feature-card h3 {
+      margin: 0 0 0.5rem 0;
+      color: var(--teal-dark);
+      font-size: 1.4rem;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+
+    .feature-card p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      color: #666;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-style: normal;
+    }
+
+    /* Replace the existing matrix section CSS with this */
+    .matrix-section {
+      position: relative;
+      margin: 4rem 0;
+      padding: 3rem;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .matrix-accent {
+      display: none;
+    }
+
+    .matrix-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .matrix-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, var(--teal-light), #f0faf7);
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: var(--teal-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .matrix-table {
+      width: 100%;
+      border-spacing: 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .matrix-table th {
+      background: var(--teal-dark);
+      color: white;
+      font-weight: 500;
+      padding: 1rem;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      font-style: normal;
+    }
+
+    .matrix-table td {
+      padding: 1rem;
+      text-align: center;
+      font-family: var(--mono);
+      font-size: 0.95rem;
+      border-bottom: 1px solid #eee;
+    }
+
+    .matrix-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .check-icon {
+      color: #00a854;
+      font-weight: bold;
+    }
+
+    .dash-icon {
+      color: #999;
+    }
+
+    .legend {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1.5rem;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 0.85rem;
+    }
+    .how-it-works {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    .how-it-works::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 2.5rem;
+      bottom: 2rem;
+      width: 2px; /* Slightly thicker */
+      background: var(--teal-light); /* Lighter color */
+    }
+    .how-it-works li {
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .how-it-works li::before {
+      content: "";
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23008080' viewBox='0 0 16 16'%3E%3Cpath d='M13.485 1.93A1 1 0 0 1 14.4 3l-7.12 9.712a1 1 0 0 1-1.512.11L1.6 10.27a1 1 0 1 1 1.4-1.428l2.353 2.352L12.2 2.6a1 1 0 0 1 1.285-.67z'/%3E%3C/svg%3E") no-repeat center center;
+      background-size: contain;
+    }
+    .how-it-works strong {
+      display: block; /* Make strong tag take full width initially */
+      margin-bottom: 0.2rem;
+      font-family: Georgia, serif;
+      font-weight: 600;
+      color: var(--teal-dark);
+    }
+    .cta-buttons {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background-color: #fff;
+      color: var(--teal-dark);
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      font-style: normal;
+      transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .cta-button:hover {
+      background-color: var(--teal-light);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+    }
+    .cta-button.secondary {
+      background-color: transparent;
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: none;
+    }
+    .cta-button.secondary:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+    .faq-section details {
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+      margin-bottom: 0.5rem;
+    }
+    .faq-section summary {
+      font-weight: 600;
+      color: var(--teal-dark);
+      cursor: pointer;
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      list-style: none; /* Remove default marker */
+      position: relative;
+      padding-right: 1.5rem; /* Space for custom marker */
+    }
+    .faq-section summary::after {
+      content: '+'; /* Custom marker */
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-family: var(--mono);
+      font-style: normal;
+      font-weight: bold;
+      color: var(--teal);
+    }
+    .faq-section details[open] summary::after {
+      content: '−';
+    }
+    .faq-section details p {
+      margin: 0.8rem 0 0 0;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #444;
+    }
+    footer {
+      text-align: center;
+      color: var(--teal-dark);
+      font-size: 1rem;
+      margin: 5rem 0 2rem 0;
+      padding-top: 1.5rem;
+      font-family: Georgia, serif;
+      font-style: italic;
+    }
+    @media (max-width: 800px) {
+      .header-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 3.5rem; }
+      .header-shield { display: none; }
+      .diagonal-bar { transform: skewY(-3deg); }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="diagonal-bar"></div>
+    <div class="header-content">
+      <div class="header-grid">
+        <div>
+          <h1>Sentinel</h1>
+          <p>The elegant guardian of your digital privacy. Defends your browsing experience with sophisticated precision.</p>
+          <div class="header-meta">Firefox & Chrome Extension</div>
+          <div class="cta-buttons">
+            <a href="#install-chrome" class="cta-button">Get for Chrome</a>
+            <a href="#install-firefox" class="cta-button secondary">Get for Firefox</a>
+          </div>
+        </div>
+        <div class="header-shield">S</div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <h2>How Sentinel Protects Your Privacy</h2>
+    <div class="features">
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-content">
+          <h3>Tracker Blocking</h3>
+          <p>
+            Sentinel blocks ads, analytics, and social media trackers before they can load, using industry-standard blocklists like EasyList and EasyPrivacy. This prevents companies from following you across the web and building a profile of your browsing habits.
+          </p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-content">
+          <h3>Fingerprint Defense</h3>
+          <p>
+            Many sites use “fingerprinting” to identify your device even if you block cookies. Sentinel disrupts this by adding subtle, random noise to Canvas, Audio, and WebGL APIs, so your browser appears different every time—making tracking unreliable.
+          </p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚙️</div>
+        <div class="feature-content">
+          <h3>Customizable & Transparent</h3>
+          <p>
+            You can add your own blocklists or rules, and view real-time stats on what’s being blocked. Sentinel is open source, so anyone can review or contribute to the code.
+          </p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <div class="feature-content">
+          <h3>Smart Protection</h3>
+          <p>Advanced tracking prevention using machine learning to identify and block new threats automatically.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <div class="feature-content">
+          <h3>Precision Control</h3>
+          <p>Granular controls for each website, letting you decide exactly what to allow or block.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-content">
+          <h3>Lightning Fast</h3>
+          <p>Zero impact on browsing speed with our optimized blocking engine.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-content">
+          <h3>Privacy First</h3>
+          <p>Your data never leaves your browser. Everything happens locally on your device.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="matrix-section">
+      <div class="matrix-header">
+        <h2>Protection Stats</h2>
+      </div>
+      <div class="matrix-stats">
+        <div class="stat-card">
+          <div class="stat-number">99.8%</div>
+          <div class="stat-label">Trackers Blocked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">Fingerprint Protection</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">2.5x</div>
+          <div class="stat-label">Faster Loading</div>
+        </div>
+      </div>
+      <table class="matrix-table">
+        <thead>
+          <tr>
+            <th>Protection Type</th>
+            <th>Basic</th>
+            <th>Advanced</th>
+            <th>Custom</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Canvas Fingerprinting</td>
+            <td><span class="check-icon">✓</span></td>
+            <td><span class="check-icon">✓</span></td>
+            <td><span class="check-icon">✓</span></td>
+          </tr>
+          <tr>
+            <td>Audio Fingerprinting</td>
+            <td><span class="check-icon">✓</span></td>
+            <td><span class="check-icon">✓</span></td>
+            <td><span class="check-icon">✓</span></td>
+          </tr>
+          <tr>
+            <td>WebGL Protection</td>
+            <td><span class="dash-icon">-</span></td>
+            <td><span class="check-icon">✓</span></td>
+            <td><span class="check-icon">✓</span></td>
+          </tr>
+          <tr>
+            <td>Custom Rules</td>
+            <td><span class="dash-icon">-</span></td>
+            <td><span class="dash-icon">-</span></td>
+            <td><span class="check-icon">✓</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="legend">
+        <div><span class="check-icon">✓</span> Included</div>
+        <div><span class="dash-icon">-</span> Not Available</div>
+      </div>
+    </div>
+
+    <h2>How Sentinel Works</h2>
+    <ul class="how-it-works">
+      <li><strong>Network Blocking:</strong> Uses the browser’s built-in rules engine to block trackers before they load, saving bandwidth and improving privacy.</li>
+      <li><strong>API Randomization:</strong> Adds tiny, random changes to fingerprinting APIs, so scripts can’t build a consistent profile of your device.</li>
+      <li><strong>Real-Time Visualization:</strong> Shows you which trackers and fingerprinting attempts have been blocked, so you’re always in control.</li>
+      <li><strong>Open Source:</strong> Sentinel’s code is public and auditable by anyone. <a href="https://github.com/yourusername/sentinel" target="_blank">View on GitHub</a>.</li>
+    </ul>
+
+    <h2>Getting Started</h2>
+    <ol>
+      <li>Install Sentinel from the Chrome or Firefox extension store.</li>
+      <li>Click the extension icon to view stats and toggle protections.</li>
+      <li>Browse as usual—Sentinel works automatically in the background.</li>
+    </ol>
+  </main>
+  <footer>
+    Sentinel — Privacy with elegance
+  </footer>
+</body>
+</html>

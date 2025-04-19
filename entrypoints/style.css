@@ -87,13 +87,15 @@ body {
 	margin: 0;
 	padding:  0;
 	display: flex;
-	min-width: 360px;
-	width: clamp(360px, 400px, 540px);
 	min-height: 100vh;
 	font-family: 'Figtree', sans-serif;
 	font-variant-numeric: tabular-nums;
 }
 
+#root{
+	width: 100%;
+	box-sizing: border-box;
+}
 
 @media (prefers-color-scheme: light) {
 	:root {

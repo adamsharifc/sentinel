@@ -14,6 +14,8 @@ h1, h2, h3, h4, h5, h6 {
 	gap: var(--size-5);
 	width: 100%;
 	margin: 0;
+	min-width: 360px;
+	width: clamp(360px, 400px, 540px);
 }
 .logo-container{
 	display: flex;

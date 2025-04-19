@@ -50,5 +50,9 @@ export default defineConfig({
 				}
 			],
 		},
+		options_ui: {
+			page: 'options/index.html',
+			open_in_tab: true,
+		}
 	},
 });

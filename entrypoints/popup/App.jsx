@@ -1,6 +1,5 @@
 import './App.css';
 import Logo from '../icons/Logo.jsx';
-// import Fingerprint from '../icons/Fingerprint.jsx';
 import Detective from '../icons/Detective.jsx';
 import FingerprintIcon from '../icons/FingerprintIcon.jsx';
 import BlockingStats from '../components/BlockingStats.jsx';

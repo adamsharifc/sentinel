@@ -12,80 +12,80 @@ import {
 import { useState, useEffect } from 'react';
 
 function App() {
-  // Initialize states with default values
-  const [canvasFPProtectionState, setCanvasFPProtectionState] = useState(true);
-  const [webGLFPProtectionState, setWebGLFPProtectionState] = useState(true);
-  const [audioFPProtectionState, setAudioFPProtectionState] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+	// Initialize states with default values
+	const [canvasFPProtectionState, setCanvasFPProtectionState] = useState(true);
+	const [webGLFPProtectionState, setWebGLFPProtectionState] = useState(true);
+	const [audioFPProtectionState, setAudioFPProtectionState] = useState(true);
+	const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const loadProtectionSettings = async () => {
-      try {
-        // Load all protection settings
-        const canvasValue = await getCanvasFPProtectionStorage();
-        const webGLValue = await getWebGLFPProtectionStorage();
-        const audioValue = await getAudioFPProtectionStorage();
-        
-        console.log('Loaded protection settings:', {
-          canvas: canvasValue,
-          webGL: webGLValue,
-          audio: audioValue
-        });
-        
-        setCanvasFPProtectionState(canvasValue);
-        setWebGLFPProtectionState(webGLValue);
-        setAudioFPProtectionState(audioValue);
-      } catch (error) {
-        console.error('Error loading protection settings:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    
-    loadProtectionSettings();
-  }, []);
+	useEffect(() => {
+		const loadProtectionSettings = async () => {
+			try {
+				// Load all protection settings
+				const canvasValue = await getCanvasFPProtectionStorage();
+				const webGLValue = await getWebGLFPProtectionStorage();
+				const audioValue = await getAudioFPProtectionStorage();
+				
+				console.log('Loaded protection settings:', {
+					canvas: canvasValue,
+					webGL: webGLValue,
+					audio: audioValue
+				});
+				
+				setCanvasFPProtectionState(canvasValue);
+				setWebGLFPProtectionState(webGLValue);
+				setAudioFPProtectionState(audioValue);
+			} catch (error) {
+				console.error('Error loading protection settings:', error);
+			} finally {
+				setIsLoading(false);
+			}
+		};
+		
+		loadProtectionSettings();
+	}, []);
 
-  async function toggleCanvasFPProtection() {
-    const newState = !canvasFPProtectionState;
-    console.log('Toggling Canvas protection to:', newState);
-    setCanvasFPProtectionState(newState);
-    
-    try {
-      await setCanvasFPProtectionStorage(newState);
-    } catch (error) {
-      console.error('Failed to save Canvas protection state:', error);
-      setCanvasFPProtectionState(!newState); // Revert UI on error
-    }
-  }
+	async function toggleCanvasFPProtection() {
+		const newState = !canvasFPProtectionState;
+		console.log('Toggling Canvas protection to:', newState);
+		setCanvasFPProtectionState(newState);
+		
+		try {
+			await setCanvasFPProtectionStorage(newState);
+		} catch (error) {
+			console.error('Failed to save Canvas protection state:', error);
+			setCanvasFPProtectionState(!newState); // Revert UI on error
+		}
+	}
 
-  async function toggleWebGLFPProtection() {
-    const newState = !webGLFPProtectionState;
-    console.log('Toggling WebGL protection to:', newState);
-    setWebGLFPProtectionState(newState);
-    
-    try {
-      await setWebGLFPProtectionStorage(newState);
-    } catch (error) {
-      console.error('Failed to save WebGL protection state:', error);
-      setWebGLFPProtectionState(!newState); // Revert UI on error
-    }
-  }
+	async function toggleWebGLFPProtection() {
+		const newState = !webGLFPProtectionState;
+		console.log('Toggling WebGL protection to:', newState);
+		setWebGLFPProtectionState(newState);
+		
+		try {
+			await setWebGLFPProtectionStorage(newState);
+		} catch (error) {
+			console.error('Failed to save WebGL protection state:', error);
+			setWebGLFPProtectionState(!newState); // Revert UI on error
+		}
+	}
 
-  async function toggleAudioFPProtection() {
-    const newState = !audioFPProtectionState;
-    console.log('Toggling Audio protection to:', newState);
-    setAudioFPProtectionState(newState);
-    
-    try {
-      await setAudioFPProtectionStorage(newState);
-    } catch (error) {
-      console.error('Failed to save Audio protection state:', error);
-      setAudioFPProtectionState(!newState); // Revert UI on error
-    }
-  }
+	async function toggleAudioFPProtection() {
+		const newState = !audioFPProtectionState;
+		console.log('Toggling Audio protection to:', newState);
+		setAudioFPProtectionState(newState);
+		
+		try {
+			await setAudioFPProtectionStorage(newState);
+		} catch (error) {
+			console.error('Failed to save Audio protection state:', error);
+			setAudioFPProtectionState(!newState); // Revert UI on error
+		}
+	}
 
-  return (
-    <div className='container'>
+	return (
+		<div className='container'>
 		<div className="logo-container">
 			<Logo />
 			<h1>Sentinel</h1>
@@ -136,8 +136,8 @@ function App() {
 				</div>
 			</div>
 		</div>
-    </div>
-  );
+		</div>
+	);
 }
 
 export default App;

@@ -82,6 +82,8 @@
 	--size-17: 60rem;
 	--size-17-5: 66rem;
 	--size-18: 75rem;
+
+	--primary-font: 'Figtree', sans-serif;
 }
 body {
 	margin: 0;

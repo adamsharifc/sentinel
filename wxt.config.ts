@@ -12,6 +12,7 @@ export default defineConfig({
 			'webRequest',
 			'activeTab',
 			'scripting',
+			'storage'
 		],
 		description: 'A browser extension that blocks ads and trackers.',
 		name: 'Sentinel',

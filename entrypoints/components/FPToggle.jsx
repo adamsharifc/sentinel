@@ -1,5 +1,5 @@
 import styles from "./styles/FPToggle.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Cube from "../icons/Cube.jsx";
 import Waveform from "../icons/Waveform.jsx";
 import PaintBrush from "../icons/PaintBrush.jsx";
@@ -16,13 +16,21 @@ const labels = {
     canvas: "Canvas",
 };
 
-export default function FPToggle({ type, enabled = false, onToggle }) {
+export default function FPToggle({ type, enabled = false, onToggle, disabled = false }) {
     const [isOn, setIsOn] = useState(enabled);
     const Icon = icons[type];
 
+    // Update internal state when prop changes
+    useEffect(() => {
+        setIsOn(enabled);
+    }, [enabled]);
+
     const handleToggle = () => {
-        setIsOn((prev) => !prev);
-        if (onToggle) onToggle(!isOn);
+        if (disabled) return;
+        
+        const newState = !isOn;
+        setIsOn(newState);
+        if (onToggle) onToggle(newState);
     };
 
     return (
@@ -32,6 +40,7 @@ export default function FPToggle({ type, enabled = false, onToggle }) {
                 onClick={handleToggle}
                 aria-pressed={isOn}
                 title={labels[type]}
+                disabled={disabled}
             >
                 <span className={styles.iconCircle}>
                     {Icon && <Icon size={24} fill={isOn ? "#fff" : "var(--danger-800)"} />}

@@ -1,0 +1,8 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    box-sizing: border-box;
+    padding: var(--size-4-5);
+    color: var(--fg80);
+}

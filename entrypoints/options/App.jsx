@@ -1,6 +1,9 @@
 import './App.css';
 import { useState } from 'react';
 import Logo from "../icons/Logo.jsx";
+import PanelRuleLimits from '../components/PanelRuleLimits.jsx';
+import PanelAbout from '../components/PanelAbout.jsx';
+import PanelUserRules from '../components/PanelUserRules.jsx';  
 
 function App() {
     const [activeTab, setActiveTab] = useState('general');
@@ -65,23 +68,19 @@ function App() {
                         
                         {activeTab === 'userrules' && (
                             <div className="tab-panel">
-                                <h2>User Rules</h2>
-                                <p>Configure custom protection rules.</p>
+                                <PanelUserRules/>
                             </div>
                         )}
                         
                         {activeTab === 'rulelimits' && (
                             <div className="tab-panel">
-                                <h2>Rule Limits</h2>
-                                <p>Configure limits for protection rules.</p>
+                                <PanelRuleLimits/>
                             </div>
                         )}
                         
                         {activeTab === 'about' && (
                             <div className="tab-panel">
-                                <h2>About</h2>
-                                <p>Sentinel - Privacy Protection Extension</p>
-                                <p>Version: 1.0.0</p>
+                                <PanelAbout/>
                             </div>
                         )}
                     </div>

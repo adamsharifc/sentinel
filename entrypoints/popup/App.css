@@ -16,6 +16,8 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 	min-width: 360px;
 	width: clamp(360px, 400px, 540px);
+	background-color: var(--bg);
+	color: var(--fg90);
 }
 .logo-container{
 	display: flex;

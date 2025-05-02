@@ -9,6 +9,11 @@ body{
     height: 100%;
 }
 
+:root{
+
+    --white: 
+}
+
 .container{
     display: flex;
     flex-direction: column;
@@ -49,7 +54,7 @@ body{
     cursor: pointer;
     font-size: var(--size-4);
     transition: all 0.2s ease;
-	color: rgba(255, 255, 255, 0.5);
+	color: var(--fg60);
 	font-weight: 600;
 	font-family: var(--primary-font);
 }
@@ -65,11 +70,11 @@ body{
 
 .tab-content {
     border: 1px solid red;
-    padding: var(--size-4-5) var(--size-4-5);
 }
 
 .tab-panel {
     animation: fadeIn 0.3s ease;
+    font-size: var(--size-4);
 }
 
 .tab-panel h2 {

@@ -4,8 +4,6 @@
 	font-weight: 400;
 
 	color-scheme: light dark;
-	color: rgba(255, 255, 255, 0.87);
-	background-color: #121212;
 
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -84,14 +82,19 @@
 	--size-18: 75rem;
 
 	--primary-font: 'Figtree', sans-serif;
-}
-body {
-	margin: 0;
-	padding:  0;
-	display: flex;
-	min-height: 100vh;
-	font-family: 'Figtree', sans-serif;
-	font-variant-numeric: tabular-nums;
+
+	--fg90: rgba(255, 255, 255, 0.9);
+	--fg80: rgba(255, 255, 255, 0.8);
+	--fg70: rgba(255, 255, 255, 0.7);
+	--fg60: rgba(255, 255, 255, 0.6);
+	--fg50: rgba(255, 255, 255, 0.5);
+	--fg40: rgba(255, 255, 255, 0.4);
+	--fg30: rgba(255, 255, 255, 0.3);
+	--fg20: rgba(255, 255, 255, 0.2);
+	--fg10: rgba(255, 255, 255, 0.1);
+	--fg5: rgba(255, 255, 255, 0.05);
+
+	--bg: #000000;
 }
 
 #root{
@@ -101,8 +104,6 @@ body {
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #121212;
-		background-color: #ffffff;
 
 		--primary-100: #C6F8E7;
 		--primary-200: #91F2D9;
@@ -133,6 +134,20 @@ body {
 		--danger-700: #A22E0C;
 		--danger-800: #831B07;
 		--danger-900: #6C0F04;
+
+		--fg90: rgba(0, 0, 0, 0.9);
+		--fg80: rgba(0, 0, 0, 0.8);
+		--fg70: rgba(0, 0, 0, 0.7);
+		--fg60: rgba(0, 0, 0, 0.6);
+		--fg50: rgba(0, 0, 0, 0.5);
+		--fg40: rgba(0, 0, 0, 0.4);
+		--fg30: rgba(0, 0, 0, 0.3);
+		--fg20: rgba(0, 0, 0, 0.2);
+		--fg10: rgba(0, 0, 0, 0.1);
+		--fg5: rgba(0, 0, 0, 0.05);
+
+		--bg: #ffffff;
+
 	}
 	a:hover {
 		color: #747bff;
@@ -140,4 +155,16 @@ body {
 	button {
 		background-color: #f9f9f9;
 	}
+}
+
+
+body {
+	margin: 0;
+	padding:  0;
+	display: flex;
+	min-height: 100vh;
+	font-family: 'Figtree', sans-serif;
+	font-variant-numeric: tabular-nums;
+	background-color: var(--bg) !important;
+	color: var(--fg90);
 }

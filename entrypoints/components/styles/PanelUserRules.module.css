@@ -1,0 +1,155 @@
+.container {
+    padding: var(--size-5);
+    max-width: 100%;
+}
+
+.ruleForm {
+    border-radius: var(--size-2);
+    padding: var(--size-5);
+    margin-bottom: var(--size-7);
+    background: var(--bg);
+    box-shadow: 0 1px 4px 0 var(--fg10);
+    border: 1px solid var(--fg20);
+}
+
+.formGroup {
+    margin-bottom: var(--size-4);
+}
+
+.formGroup label {
+    display: block;
+    margin-bottom: var(--size-1-5);
+    font-weight: 600;
+    font-family: var(--primary-font);
+    color: var(--primary-color);
+}
+
+.formGroup small {
+    display: block;
+    margin-top: var(--size-1);
+    color: var(--fg60);
+    font-size: 0.85em;
+}
+
+.textInput {
+    width: 100%;
+    padding: var(--size-2);
+    border: 1px solid var(--fg30);
+    border-radius: var(--size-1);
+    font-size: var(--size-4);
+    background: var(--bg);
+    color: var(--fg90);
+    font-family: var(--primary-font);
+}
+
+.radioGroup, .checkboxGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--size-3);
+}
+
+.checkboxGroup {
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+.checkboxGroup label {
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    margin-right: var(--size-3);
+    margin-bottom: var(--size-1);
+    min-width: 120px;
+    color: var(--fg90);
+}
+
+.checkboxGroup input, .radioGroup input {
+    margin-right: var(--size-1-5);
+}
+
+.addButton {
+    background-color: var(--primary-500);
+    color: var(--bg);
+    border: none;
+    padding: var(--size-2) var(--size-4);
+    border-radius: var(--size-1);
+    cursor: pointer;
+    font-weight: 600;
+    font-family: var(--primary-font);
+    transition: background 0.2s;
+}
+
+.addButton:hover {
+    background-color: var(--primary-600);
+}
+
+.errorMessage {
+    color: var(--danger-700);
+    margin-top: var(--size-2);
+}
+
+.rulesContainer {
+    margin-top: var(--size-7);
+}
+
+.rulesList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ruleItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--size-4);
+    border: 1px solid var(--fg20);
+    border-radius: var(--size-1);
+    margin-bottom: var(--size-2);
+    background-color: var(--bg);
+    box-shadow: 0 1px 2px 0 var(--fg10);
+}
+
+.ruleDetails {
+    flex: 1;
+}
+
+.ruleType {
+    display: inline-block;
+    padding: var(--size-0-5) var(--size-2);
+    border-radius: var(--size-1);
+    font-size: var(--size-3);
+    font-weight: 700;
+    margin-right: var(--size-2);
+    background-color: var(--primary-100);
+    color: var(--primary-700);
+}
+
+.rulePattern {
+    font-weight: 600;
+    color: var(--fg90);
+}
+
+.resourceTypes {
+    font-size: 0.85em;
+    color: var(--fg60);
+    margin-top: var(--size-1);
+}
+
+.deleteButton {
+    background-color: var(--danger-100);
+    color: var(--danger-700);
+    border: none;
+    border-radius: 50%;
+    width: var(--size-7);
+    height: var(--size-7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.deleteButton:hover {
+    background-color: var(--danger-200);
+}

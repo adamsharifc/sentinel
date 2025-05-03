@@ -1,118 +1,135 @@
-import React, {createContext, useState, useEffect, useCallback, useContext} from 'react';
+import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
 import { useSyncExternalStore } from 'use-sync-external-store/shim/index.js';
-import { storage } from 'wxt/storage'; 
+import { storage } from 'wxt/storage';
 
-const themeStorage = storage.defineItem('local:theme', {});
+// Store the user's preference: 'system', 'light', or 'dark'
+const themePreferenceStorage = storage.defineItem('local:themePreference', { defaultValue: 'system' });
 
 const ThemeContext = createContext(undefined);
 
+// Helper function to get system theme
+const getSystemTheme = () => {
+    if (typeof window !== 'undefined') {
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return 'light'; // Default server-side or if window is undefined
+};
+
 export const ThemeProvider = ({ children }) => {
-	// Initialize state with a placeholder or system preference guess
-	const [initialTheme, setInitialTheme] = useState(() => {
-		// Initial guess before async storage check
-		if (typeof window !== 'undefined') {
-				return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-		}
-		return 'light'; // Default server-side or if window is undefined
-	});
-	const [isInitialLoad, setIsInitialLoad] = useState(true);
+    const [themePreference, setThemePreferenceState] = useState('system'); // Initial state before storage check
+    const [effectiveTheme, setEffectiveTheme] = useState(getSystemTheme()); // Initial guess
+    const [isInitialLoad, setIsInitialLoad] = useState(true);
 
-	// Fetch initial theme from storage asynchronously
-	useEffect(() => {
-		const getInitialTheme = async () => {
-			let determinedTheme = 'light'; // Default fallback
-			if (typeof window !== 'undefined') {
-					// Determine system theme first
-					const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-					determinedTheme = systemPrefersDark ? 'dark' : 'light';
-					console.log('System preference:', determinedTheme);
-			}
+    // Fetch initial preference from storage
+    useEffect(() => {
+        const loadPreference = async () => {
+            try {
+                const storedPreference = await themePreferenceStorage.getValue();
+                console.log('Preference from storage:', storedPreference);
+                setThemePreferenceState(storedPreference || 'system'); // Default to 'system' if null/undefined
+            } catch (error) {
+                console.error("Failed to get theme preference from storage:", error);
+                setThemePreferenceState('system'); // Fallback to system on error
+            } finally {
+                setIsInitialLoad(false);
+            }
+        };
+        loadPreference();
+    }, []);
 
-			try {
-				const storedTheme = await themeStorage.getValue();
-				console.log('Theme from storage:', storedTheme);
-				if (storedTheme) {
-						determinedTheme = storedTheme; // Use stored theme if available
-				} else {
-						console.log('No theme in storage, using system preference as fallback.');
-						// If no stored theme, determinedTheme already holds the system preference
-				}
-			} catch (error) {
-				console.error("Failed to get theme from storage:", error);
-				// Keep determinedTheme as system preference on error
-			} finally {
-				console.log('Setting initial theme to:', determinedTheme);
-				setInitialTheme(determinedTheme);
-				document.documentElement.setAttribute('data-theme', determinedTheme);
-				setIsInitialLoad(false); // Mark initial load as complete
-			}
-		};
-		getInitialTheme();
-	}, []);
+    // Update effective theme based on preference and system changes
+    useEffect(() => {
+        if (isInitialLoad) return; // Don't run on initial load before preference is set
 
-	// Function to subscribe to theme changes in storage
-	const subscribe = useCallback((callback) => {
-		console.log('Subscribing to theme changes');
-		const unwatch = themeStorage.watch((newValue, oldValue) => {
-			console.log('Theme changed in storage:', oldValue, '->', newValue);
-			if (newValue) {
-				document.documentElement.setAttribute('data-theme', newValue);
-				callback(); // Notify useSyncExternalStore
-			}
-		});
-		return () => {
-			console.log('Unsubscribing from theme changes');
-			unwatch();
-		};
-	}, []);
+        const applyTheme = () => {
+            let newEffectiveTheme;
+            if (themePreference === 'system') {
+                newEffectiveTheme = getSystemTheme();
+                console.log('Applying system theme:', newEffectiveTheme);
+            } else {
+                newEffectiveTheme = themePreference;
+                console.log('Applying user preference:', newEffectiveTheme);
+            }
+            setEffectiveTheme(newEffectiveTheme);
+            document.documentElement.setAttribute('data-theme', newEffectiveTheme);
+        };
 
-	// Function to get the current theme snapshot from storage
-	const getSnapshot = useCallback(() => {
-		// During initial load, return the state value, otherwise read directly for sync
-		// This avoids reading storage synchronously on every render initially
-		if (isInitialLoad) {
-				return initialTheme;
-		}
-		return document.documentElement.getAttribute('data-theme') || (typeof window !== 'undefined' && window.matchMedia("(prefers-color-scheme: dark)").matches ? 'dark' : 'light');
-	}, [isInitialLoad, initialTheme]);
+        applyTheme(); // Apply theme immediately based on current preference
 
-	// Use useSyncExternalStore to keep the theme in sync with storage changes
-	const theme = useSyncExternalStore(subscribe, getSnapshot, getSnapshot); // Use getSnapshot for server snapshot too
+        // Listen for system theme changes only if preference is 'system'
+        let mediaQueryList;
+        const handleChange = () => {
+            console.log('System theme changed');
+            applyTheme();
+        };
 
-	const toggleTheme = useCallback(async () => {
-		// Read current theme directly from attribute or state as fallback
-		const currentTheme = document.documentElement.getAttribute('data-theme') || initialTheme;
-		const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-		console.log('Toggling theme to:', newTheme);
-		try {
-			await themeStorage.setValue(newTheme);
-			// Watcher updates the attribute, but set it immediately for responsiveness
-			document.documentElement.setAttribute('data-theme', newTheme);
-		} catch (error) {
-			console.error("Failed to set theme:", error);
-		}
-	}, [initialTheme]); // Depend on initialTheme for fallback in toggle
+        if (themePreference === 'system' && typeof window !== 'undefined') {
+            mediaQueryList = window.matchMedia("(prefers-color-scheme: dark)");
+            mediaQueryList.addEventListener('change', handleChange);
+            console.log('Added system theme listener');
+        }
 
-	// Ensure the attribute is set on initial load completion based on fetched theme
-	useEffect(() => {
-		if (!isInitialLoad) {
-			 document.documentElement.setAttribute('data-theme', theme);
-		}
-	}, [theme, isInitialLoad]);
+        // Cleanup listener
+        return () => {
+            if (mediaQueryList) {
+                mediaQueryList.removeEventListener('change', handleChange);
+                console.log('Removed system theme listener');
+            }
+        };
+    }, [themePreference, isInitialLoad]); // Rerun when preference changes or initial load completes
 
-	// Avoid rendering children until the initial theme is loaded
-	if (isInitialLoad) {
-		return null; // Or a loading indicator
-	}
+    // Function to update the theme preference
+    const setThemePreference = useCallback(async (preference) => {
+        if (!['system', 'light', 'dark'].includes(preference)) {
+            console.error('Invalid theme preference:', preference);
+            return;
+        }
+        console.log('Setting theme preference to:', preference);
+        try {
+            await themePreferenceStorage.setValue(preference);
+            setThemePreferenceState(preference); // Update local state immediately
+            // The useEffect hook will handle applying the theme
+        } catch (error) {
+            console.error("Failed to set theme preference:", error);
+        }
+    }, []);
 
-	const value = {
-		theme,
-		toggleTheme,
-	};
+    // Subscribe to storage changes (e.g., from other tabs/windows)
+    const subscribe = useCallback((callback) => {
+        console.log('Subscribing to theme preference changes');
+        const unwatch = themePreferenceStorage.watch((newValue) => {
+            console.log('Theme preference changed in storage:', newValue);
+            if (newValue && ['system', 'light', 'dark'].includes(newValue)) {
+                setThemePreferenceState(newValue); // Update state when storage changes
+                callback(); // Notify useSyncExternalStore (though we primarily rely on state now)
+            }
+        });
+        return () => {
+            console.log('Unsubscribing from theme preference changes');
+            unwatch();
+        };
+    }, []);
 
-	return (
-		<ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
-	);
+    // Snapshot for useSyncExternalStore (less critical now state drives updates)
+    const getSnapshot = useCallback(() => themePreference, [themePreference]);
+
+    // Use useSyncExternalStore primarily for cross-tab sync
+    useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
+
+    // Avoid rendering children until the initial preference is loaded
+    if (isInitialLoad) {
+        return null; // Or a loading indicator
+    }
+
+    const value = {
+        themePreference, // 'system', 'light', 'dark'
+        effectiveTheme,  // 'light', 'dark'
+        setThemePreference,
+    };
+
+    return (
+        <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
+    );
 };
 
 export const useTheme = () => {

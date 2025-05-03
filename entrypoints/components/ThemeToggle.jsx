@@ -1,27 +1,27 @@
 import React from "react";
 import styles from "./styles/ThemeToggle.module.css";
-import { useTheme } from "../context/ThemeContext"; // Import the useTheme hook
+import { useTheme } from "../context/ThemeContext";
 
 export default function ThemeToggle() {
-    const { theme, toggleTheme } = useTheme(); // Use the theme context
-
-    if (!theme) {
-        return <div>Loading ...</div>; 
-    }
+    const { themePreference, setThemePreference } = useTheme();
+    const themeOptions = ['system', 'light', 'dark'];
 
     return (
         <div className={styles.container}>
-            <h2>Theme Toggle</h2>
-            <p>Switch between light and dark themes.</p>
-            <div className={styles.toggle}>
-                <input
-                    type="checkbox"
-                    id="theme-toggle"
-                    checked={theme === "dark"}
-                    onChange={toggleTheme} // Use the toggle function from context
-                    aria-label="Toggle theme"
-                />
-                <label htmlFor="theme-toggle">Toggle Theme ({theme})</label>
+            <p>Select theme preference:</p>
+            <div className={styles.buttonGroup} role="radiogroup" aria-label="Theme preference">
+                {themeOptions.map((option) => (
+                    <button
+                        key={option}
+                        className={`${styles.themeButton} ${themePreference === option ? styles.active : ''}`}
+                        onClick={() => setThemePreference(option)}
+                        aria-pressed={themePreference === option}
+                        role="radio"
+                        aria-checked={themePreference === option}
+                    >
+                        {option.charAt(0).toUpperCase() + option.slice(1)}
+                    </button>
+                ))}
             </div>
         </div>
     );

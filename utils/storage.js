@@ -62,10 +62,10 @@ export const getAudioFPProtectionStorage = async () => {
 		const result = await browser.storage.local.get(STORAGE_KEYS.AUDIO_PROTECTION);
 		return result.hasOwnProperty(STORAGE_KEYS.AUDIO_PROTECTION) 
 			? result[STORAGE_KEYS.AUDIO_PROTECTION] 
-			: false; // Default to false if not set
+			: true; // Default to true if not set
 	} catch (error) {
 		console.error('Error getting Audio protection state:', error);
-		return false; // Default to false on error
+		return true; // Default to true on error
 	}
 };
 

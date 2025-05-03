@@ -3,7 +3,8 @@ import { useState } from 'react';
 import Logo from "../icons/Logo.jsx";
 import PanelRuleLimits from '../components/PanelRuleLimits.jsx';
 import PanelAbout from '../components/PanelAbout.jsx';
-import PanelUserRules from '../components/PanelUserRules.jsx';  
+import PanelUserRules from '../components/PanelUserRules.jsx'; 
+import PanelGeneral from '../components/PanelGeneral.jsx'; 
 
 function App() {
     const [activeTab, setActiveTab] = useState('general');
@@ -54,8 +55,7 @@ function App() {
                     <div className="tab-content">
                         {activeTab === 'general' && (
                             <div className="tab-panel">
-                                <h2>General Settings</h2>
-                                <p>Configure general extension settings here.</p>
+                                <PanelGeneral/>
                             </div>
                         )}
                         

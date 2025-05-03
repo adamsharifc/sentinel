@@ -89,15 +89,15 @@ export default function BlockingStats() {
     return (
         <>
             <div className="blocking-stats">
-                <span style={{fontSize: "var(--size-5)", color: "var(--warning-400)"}}>
+                <span style={{fontSize: "var(--size-5)"}}>
                     <strong> {trackersBlocked} </strong> 
                     <span style={{fontSize: "var(--size-3"}}>TRACKERS</span>
                 </span>
-                <span style={{fontSize: "var(--size-5)", color: "var(--warning-400)"}}>
+                <span style={{fontSize: "var(--size-5)"}}>
                     <strong> {advertsBlocked} </strong> 
                     <span style={{fontSize: "var(--size-3"}}>ADVERTS</span>
                 </span>
-                <span style={{fontSize: "var(--size-5)", color: "var(--warning-400)"}}>
+                <span style={{fontSize: "var(--size-5)"}}>
                     <strong> {socialBlocked} </strong> 
                     <span style={{fontSize: "var(--size-3"}}>SOCIALS</span>
                 </span>

@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--size-2); /* Use global size variable */
+    padding: var(--size-3); /* Use global size variable */
+    /* Inherit border, background, color from parent or global styles */
+}
+
+.container p {
+    margin: 0; /* Reset default margin */
+    font-size: var(--size-3-5); /* Use global size variable */
+    color: var(--fg80); /* Use global text color variable */
+}
+
+.buttonGroup {
+    display: inline-flex;
+    border: 1px solid var(--fg20); /* Use subtle border color */
+    border-radius: var(--size-1); /* Use global size variable */
+    overflow: hidden;
+}
+
+.themeButton {
+    padding: var(--size-1-5) var(--size-3); /* Use global size variables */
+    border: none;
+    background-color: var(--bg); /* Use global background */
+    color: var(--fg70); /* Use global text color */
+    cursor: pointer;
+    font-size: var(--size-3-5); /* Use global size variable */
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-right: 1px solid var(--fg20); /* Separator */
+    line-height: 1.2; /* Adjust line height for better vertical alignment */
+}
+
+.themeButton:last-child {
+    border-right: none;
+}
+
+.themeButton:hover {
+    background-color: var(--fg5); /* Subtle hover background */
+    color: var(--fg90);
+}
+
+.themeButton.active {
+    background-color: var(--primary-500); /* Use primary color for active */
+    color: var(--bg); /* Use background color for text on active */
+    font-weight: 500; /* Slightly bolder */
+}
+
+.toggleButton {
+    padding: 8px 15px;
+    border: 1px solid var(--button-border-color, #888);
+    border-radius: 4px;
+    background-color: var(--button-background-color, #eee);
+    color: var(--button-text-color, #333);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.toggleButton:hover {
+    background-color: var(--button-hover-background-color, #ddd);
+    border-color: var(--button-hover-border-color, #666);
+}

@@ -24,7 +24,6 @@ web-ext.config.ts
 *.njsproj
 *.sln
 *.sw?
-package-lock.json
 
 abp2dnr.js
 abp2ndr.py

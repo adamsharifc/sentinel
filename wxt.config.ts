@@ -9,26 +9,12 @@ export default defineConfig({
 			'declarativeNetRequest',
 			'declarativeNetRequestFeedback',
 			'declarativeNetRequestWithHostAccess',
-			'webRequest',
 			'activeTab',
 			'scripting',
 			'storage'
 		],
 		description: 'A browser extension that blocks ads and trackers.',
 		name: 'Sentinel',
-		// content_scripts: [
-		// 	{
-		// 		matches: ['<all_urls>'],
-		// 		js: [
-		// 			// './content-scripts/canvasFingerprintBlocking.js',
-		// 			// './content-scripts/audioFingerprintBlocking.js',
-		// 			// './content-scripts/webglFingerprintBlocking.js',
-		// 		],
-		// 		run_at: 'document_start',
-		// 		all_frames: true,
-		// 		world: 'MAIN',
-		// 	},
-		// ],
 		host_permissions: [
 			"<all_urls>",
 		],

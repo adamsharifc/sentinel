@@ -2,7 +2,7 @@
 	"name": "Sentinel",
 	"description": "A Chrome extension for tracker blocking and fingerprinting protection.",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.0.2",
 	"type": "module",
 	"scripts": {
 		"dev": "wxt",

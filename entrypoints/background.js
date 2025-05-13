@@ -2,6 +2,7 @@ import {
     getCanvasFPProtectionStorage,
     getAudioFPProtectionStorage,
     getWebGLFPProtectionStorage,
+    getFontFPProtectionStorage,
     STORAGE_KEYS // Import the storage keys
 } from '../utils/storage.js'; // Adjust path if necessary
 
@@ -54,10 +55,12 @@ export default defineBackground(async () => {
             const canvasEnabled = await getCanvasFPProtectionStorage();
             const audioEnabled = await getAudioFPProtectionStorage();
             const webglEnabled = await getWebGLFPProtectionStorage();
+            const fontEnabled = await getFontFPProtectionStorage();
             console.log('Current Sentinel Storage State:', {
                 [STORAGE_KEYS.CANVAS_PROTECTION]: canvasEnabled,
                 [STORAGE_KEYS.AUDIO_PROTECTION]: audioEnabled,
                 [STORAGE_KEYS.WEBGL_PROTECTION]: webglEnabled,
+                [STORAGE_KEYS.FONT_PROTECTION]: fontEnabled,
             });
         } catch (error) {
             console.error("Error reading Sentinel storage:", error);
@@ -69,6 +72,7 @@ export default defineBackground(async () => {
     await updateContentScript(getCanvasFPProtectionStorage, "canvas-content-script", "./content-scripts/canvasFingerprintBlocking.js");
     await updateContentScript(getAudioFPProtectionStorage, "audio-content-script", "./content-scripts/audioFingerprintBlocking.js");
     await updateContentScript(getWebGLFPProtectionStorage, "webgl-content-script", "./content-scripts/webglFingerprintBlocking.js");
+    await updateContentScript(getFontFPProtectionStorage, "font-content-script", "./content-scripts/fontFingerprintBlocking.js");
 
     // Listen for changes in storage and update content script registrations dynamically
     chrome.storage.onChanged.addListener(async (changes, areaName) => {
@@ -76,7 +80,8 @@ export default defineBackground(async () => {
             const relevantKeys = [
                 STORAGE_KEYS.CANVAS_PROTECTION,
                 STORAGE_KEYS.AUDIO_PROTECTION,
-                STORAGE_KEYS.WEBGL_PROTECTION
+                STORAGE_KEYS.WEBGL_PROTECTION,
+                STORAGE_KEYS.FONT_PROTECTION,
             ];
             const changedKeys = Object.keys(changes);
             const hasRelevantChange = changedKeys.some(key => relevantKeys.includes(key));
@@ -97,6 +102,10 @@ export default defineBackground(async () => {
             if (STORAGE_KEYS.WEBGL_PROTECTION in changes) {
                 console.log("WebGL protection state changed:", changes[STORAGE_KEYS.WEBGL_PROTECTION]);
                 await updateContentScript(getWebGLFPProtectionStorage, "webgl-content-script", "./content-scripts/webglFingerprintBlocking.js");
+            }
+            if (STORAGE_KEYS.FONT_PROTECTION in changes) {
+                console.log("Font protection state changed:", changes[STORAGE_KEYS.FONT_PROTECTION]);
+                await updateContentScript(getFontFPProtectionStorage, "font-content-script", "./content-scripts/fontFingerprintBlocking.js");
             }
         }
     });

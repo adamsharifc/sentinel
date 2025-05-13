@@ -5,6 +5,7 @@ const STORAGE_KEYS = {
 	CANVAS_PROTECTION: 'fingerprintProtection.canvas',
 	WEBGL_PROTECTION: 'fingerprintProtection.webgl',
 	AUDIO_PROTECTION: 'fingerprintProtection.audio',
+	FONT_PROTECTION: 'fingerprintProtection.font',
 };
 
 // Get canvas fingerprinting protection state
@@ -79,6 +80,30 @@ export const setAudioFPProtectionStorage = async (value) => {
 		throw error;
 	}
 };
+
+// Add functions for Font protection settings
+export const getFontFPProtectionStorage = async () => {
+	try {
+		const result = await browser.storage.local.get(STORAGE_KEYS.FONT_PROTECTION);
+		return result.hasOwnProperty(STORAGE_KEYS.FONT_PROTECTION) 
+			? result[STORAGE_KEYS.FONT_PROTECTION] 
+			: true; // Default to true if not set
+	} catch (error) {
+		console.error('Error getting Font protection state:', error);
+		return true; // Default to true on error
+	}
+};
+
+export const setFontFPProtectionStorage = async (value) => {
+	try {
+		await browser.storage.local.set({ [STORAGE_KEYS.FONT_PROTECTION]: value });
+		console.log(`Font protection set to ${value} in storage`);
+		return true;
+	} catch (error) {
+		console.error('Error setting Font protection state:', error);
+		throw error;
+	}
+}
 
 
 // Export the storage keys for use in other components

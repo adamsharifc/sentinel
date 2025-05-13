@@ -7,7 +7,8 @@ import FPToggle from "../components/FPToggle.jsx";
 import { 
 	getCanvasFPProtectionStorage, setCanvasFPProtectionStorage,
 	getWebGLFPProtectionStorage, setWebGLFPProtectionStorage,
-	getAudioFPProtectionStorage, setAudioFPProtectionStorage
+	getAudioFPProtectionStorage, setAudioFPProtectionStorage,
+	getFontFPProtectionStorage, setFontFPProtectionStorage
 } from "../../utils/storage.js";
 import { useState, useEffect } from 'react';
 
@@ -16,6 +17,7 @@ function App() {
 	const [canvasFPProtectionState, setCanvasFPProtectionState] = useState(true);
 	const [webGLFPProtectionState, setWebGLFPProtectionState] = useState(true);
 	const [audioFPProtectionState, setAudioFPProtectionState] = useState(true);
+	const [fontFPProtectionState, setFontFPProtectionState] = useState(true);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(() => {
@@ -25,16 +27,19 @@ function App() {
 				const canvasValue = await getCanvasFPProtectionStorage();
 				const webGLValue = await getWebGLFPProtectionStorage();
 				const audioValue = await getAudioFPProtectionStorage();
+				const fontValue = await getFontFPProtectionStorage();
 				
 				console.log('Loaded protection settings:', {
 					canvas: canvasValue,
 					webGL: webGLValue,
-					audio: audioValue
+					audio: audioValue,
+					font: fontValue
 				});
 				
 				setCanvasFPProtectionState(canvasValue);
 				setWebGLFPProtectionState(webGLValue);
 				setAudioFPProtectionState(audioValue);
+				setFontFPProtectionState(fontValue);
 			} catch (error) {
 				console.error('Error loading protection settings:', error);
 			} finally {
@@ -81,6 +86,19 @@ function App() {
 		} catch (error) {
 			console.error('Failed to save Audio protection state:', error);
 			setAudioFPProtectionState(!newState); // Revert UI on error
+		}
+	}
+
+	async function toggleFontFPProtection() {
+		const newState = !fontFPProtectionState;
+		console.log('Toggling Font protection to:', newState);
+		setFontFPProtectionState(newState);
+		
+		try {
+			await setFontFPProtectionStorage(newState);
+		} catch (error) {
+			console.error('Failed to save Font protection state:', error);
+			setFontFPProtectionState(!newState); // Revert UI on error
 		}
 	}
 
@@ -132,6 +150,12 @@ function App() {
 						enabled={canvasFPProtectionState} 
 						onToggle={toggleCanvasFPProtection}
 						disabled={isLoading} 
+					/>
+					<FPToggle 
+						type="font" 
+						enabled={fontFPProtectionState} 
+						onToggle={toggleFontFPProtection}
+						disabled={isLoading}
 					/>
 				</div>
 			</div>

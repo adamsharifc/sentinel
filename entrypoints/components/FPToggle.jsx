@@ -3,17 +3,20 @@ import { useState, useEffect } from "react";
 import Cube from "../icons/Cube.jsx";
 import Waveform from "../icons/Waveform.jsx";
 import PaintBrush from "../icons/PaintBrush.jsx";
+import Text from "../icons/Text.jsx";
 
 const icons = {
     webgl: Cube,
     audio: Waveform,
     canvas: PaintBrush,
+    font: Text,
 };
 
 const labels = {
     webgl: "WebGL",
     audio: "Audio",
     canvas: "Canvas",
+    font: "Font",
 };
 
 export default function FPToggle({ type, enabled = false, onToggle, disabled = false }) {

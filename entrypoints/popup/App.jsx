@@ -103,64 +103,62 @@ function App() {
 	}
 
 	return (
-		<div className='container'>
-		<div className="logo-container">
-			<Logo />
-			<h1>Sentinel</h1>
-		</div>
-
-		<div className="protections-container">
-			<div className="protection-container">
-				<div className="header-protection-container">
-					<Detective size={28} />
-					<h2>Tracking Protection</h2>
-				</div>
-
-				<p>
-					Detects and blocks tracking attempts from websites, ensuring your online activities remain private.
-				</p>
-
-				<div className="blocking-stats-container">
-					<BlockingStats />
-				</div>
+		<main className='container' role="main" aria-label="Sentinel Extension Popup">
+			<div className="logo-container" role="banner" aria-label="Sentinel Logo and Title">
+				<Logo aria-hidden="true" />
+				<h1 tabIndex={0}>Sentinel</h1>
 			</div>
-			<div className="protection-container">
-				<div className="header-protection-container">
-					<FingerprintIcon size={28}/>
-					<h2>Fingerprinting Protection</h2>
-				</div>
-				<p>
-					Prevents websites from collecting unique device information to create a digital fingerprint, enhancing your anonymity.
-				</p>
-				<div className="fingerprint-toggles-container">
-					<FPToggle 
-						type="webgl" 
-						enabled={webGLFPProtectionState} 
-						onToggle={toggleWebGLFPProtection}
-						disabled={isLoading} 
-					/>
-					<FPToggle 
-						type="audio" 
-						enabled={audioFPProtectionState} 
-						onToggle={toggleAudioFPProtection}
-						disabled={isLoading} 
-					/>
-					<FPToggle 
-						type="canvas" 
-						enabled={canvasFPProtectionState} 
-						onToggle={toggleCanvasFPProtection}
-						disabled={isLoading} 
-					/>
-					<FPToggle 
-						type="font" 
-						enabled={fontFPProtectionState} 
-						onToggle={toggleFontFPProtection}
-						disabled={isLoading}
-					/>
-				</div>
+
+			<div className="protections-container">
+				<section className="protection-container" aria-labelledby="tracking-protection-heading">
+					<div className="header-protection-container">
+						<Detective size={28} aria-hidden="true" />
+						<h2 id="tracking-protection-heading" tabIndex={0}>Tracking Protection</h2>
+					</div>
+					<p>
+						Detects and blocks tracking attempts from websites, ensuring your online activities remain private.
+					</p>
+					<div className="blocking-stats-container" aria-live="polite">
+						<BlockingStats />
+					</div>
+				</section>
+				<section className="protection-container" aria-labelledby="fingerprinting-protection-heading">
+					<div className="header-protection-container">
+						<FingerprintIcon size={28} aria-hidden="true" />
+						<h2 id="fingerprinting-protection-heading" tabIndex={0}>Fingerprinting Protection</h2>
+					</div>
+					<p>
+						Prevents websites from collecting unique device information to create a digital fingerprint, enhancing your anonymity.
+					</p>
+					<div className="fingerprint-toggles-container">
+						<FPToggle 
+							type="webgl" 
+							enabled={webGLFPProtectionState} 
+							onToggle={toggleWebGLFPProtection}
+							disabled={isLoading} 
+						/>
+						<FPToggle 
+							type="audio" 
+							enabled={audioFPProtectionState} 
+							onToggle={toggleAudioFPProtection}
+							disabled={isLoading} 
+						/>
+						<FPToggle 
+							type="canvas" 
+							enabled={canvasFPProtectionState} 
+							onToggle={toggleCanvasFPProtection}
+							disabled={isLoading} 
+						/>
+						<FPToggle 
+							type="font" 
+							enabled={fontFPProtectionState} 
+							onToggle={toggleFontFPProtection}
+							disabled={isLoading}
+						/>
+					</div>
+				</section>
 			</div>
-		</div>
-		</div>
+		</main>
 	);
 }
 

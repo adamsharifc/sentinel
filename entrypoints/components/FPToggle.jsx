@@ -36,12 +36,16 @@ export default function FPToggle({ type, enabled = false, onToggle, disabled = f
         if (onToggle) onToggle(newState);
     };
 
+    // Accessibility: dynamic aria-label for the button
+    const ariaLabel = `${labels[type]} Fingerprinting Protection ${isOn ? "enabled" : "disabled"}`;
+
     return (
         <div className={styles.container}>
             <button
                 className={`${styles.toggleBtn} ${isOn ? styles.on : styles.off}`}
                 onClick={handleToggle}
                 aria-pressed={isOn}
+                aria-label={ariaLabel}
                 title={labels[type]}
                 disabled={disabled}
             >

@@ -25,7 +25,3 @@ web-ext.config.ts
 *.sln
 *.sw?
 
-abp2dnr.js
-abp2ndr.py
-
-mockups

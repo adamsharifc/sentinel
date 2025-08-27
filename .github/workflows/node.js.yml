@@ -26,4 +26,4 @@ jobs:
       with:
         version: 8 # You can specify your required pnpm version here
         run_install: true # This runs 'pnpm install' automatically
-    - run: pnpm run build --if-present
+    - run: pnpm run build

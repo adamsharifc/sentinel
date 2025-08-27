@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect, useCallback, useContext } from 'react';
 import { useSyncExternalStore } from 'use-sync-external-store/shim/index.js';
-import { storage } from 'wxt/storage';
+import { storage } from '#imports';
 
 // Store the user's preference: 'system', 'light', or 'dark'
 const themePreferenceStorage = storage.defineItem('local:themePreference', { defaultValue: 'system' });
